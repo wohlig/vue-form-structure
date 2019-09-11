@@ -277,7 +277,7 @@
                 school name is required
               </div>
             </b-form-group>
-            <!--  -->
+            <!--Address section  -->
 
             <b-form-group label="Full Address:" label-for>
               <b-form-textarea
@@ -292,6 +292,42 @@
                 class="error-txt"
               >
                 Address is required
+              </div>
+            </b-form-group>
+            <!-- state input -->
+            <b-form-group label="State" label-for="state">
+              <v-select
+                placeholder="Select state"
+                v-model="form.state"
+                label="text"
+                :options="stateOptions"
+              ></v-select>
+              <div
+                v-if="$v.form.state.$error && !$v.form.state.required"
+                class="error-txt"
+              >
+                State is required
+              </div>
+            </b-form-group>
+            <!-- city input -->
+            <b-form-group label="City" label-for="city">
+              <multiselect
+                v-model="form.city"
+                tag-placeholder="Add this as new tag"
+                placeholder="Search or add a tag"
+                label="name"
+                track-by="code"
+                class="w-50"
+                :options="options"
+                :multiple="true"
+                :taggable="true"
+                @tag="addTag"
+              ></multiselect>
+              <div
+                v-if="$v.form.city.$error && !$v.form.city.required"
+                class="error-txt"
+              >
+                State is required
               </div>
             </b-form-group>
           </div>
@@ -317,12 +353,23 @@
 // @ is an alias to /src
 import { required } from "vuelidate/lib/validators";
 import DatePicker from "vue2-datepicker";
+import Multiselect from "vue-multiselect";
 
 import moment from "moment";
 export default {
-  components: { DatePicker },
+  components: { DatePicker, Multiselect },
   data() {
     return {
+      options: [
+        { name: "thane", code: "vu" },
+        { name: "kanjur", code: "45" },
+        { name: "bhandup", code: "55" },
+        { name: "nahur", code: "53" },
+        { name: "mulund", code: "12" },
+        { name: "badlapur", code: "12" },
+        { name: "diva", code: "22" }
+      ],
+      //
       show: true,
       errors: [],
       bootstrapBtnPromise: "",
@@ -335,16 +382,26 @@ export default {
         { value: "c", text: "Passport" },
         { value: "d", text: "Driving Licence " }
       ],
-      // data foe school names
+      // data for school names
 
       schoolOptions: [
-        { value: "", text: "Select Documents" },
+        { value: "", text: "Select School" },
         { value: "a", text: "kt vidyalaya" },
         { value: "b", text: "saraswati vidyalaya" },
         { value: "c", text: "diva vidyalaya" },
         { value: "d", text: "don bosko high school" },
         { value: "e", text: "vikas high school" },
         { value: "f", text: "jk hight school" }
+      ],
+      // data for state names
+      stateOptions: [
+        { value: "", text: "Select State" },
+        { value: "a", text: "Maharashtra" },
+        { value: "b", text: "Gujrat" },
+        { value: "c", text: "Bihar" },
+        { value: "d", text: "Rajstan" },
+        { value: "e", text: "Ranchi" },
+        { value: "f", text: "Madya Pradesh" }
       ],
 
       form: {
@@ -362,6 +419,8 @@ export default {
         selectedAge: "",
         SchoolName: "",
         Address: "",
+        state: "",
+        city: [],
         checked: []
       },
 
@@ -455,11 +514,26 @@ export default {
       },
       Address: {
         required
+      },
+      state: {
+        required
+      },
+      city: {
+        required
       }
     }
   },
 
   methods: {
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)
+      };
+      this.options.push(tag);
+      this.value.push(tag);
+    },
+
     onSubmit() {
       this.$v.form.$touch();
       if (this.$v.form.$error) {
@@ -472,7 +546,6 @@ export default {
     },
 
     onReset() {
-      // console.log("JJJJJJJJJJJJJJJJJJJJJ",evt)
       // evt.preventDefault();
       // Reset our form values
       this.form.firstName = "";
@@ -489,6 +562,8 @@ export default {
       this.form.file2 = "";
       this.form.SchoolName = "";
       this.form.selectedAge = "";
+      this.form.state = "";
+      this.form.city = [];
       this.form.checked = [];
       // Trick to reset/clear native browser form validation state
       this.show = true;

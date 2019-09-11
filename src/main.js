@@ -18,6 +18,16 @@ import Toaster from "v-toaster";
 Vue.use(Toaster);
 import "v-toaster/dist/v-toaster.css";
 
+// vue select
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+Vue.component("v-select", vSelect);
+
+// vue multiSelect
+import Multiselect from "vue-multiselect";
+Vue.component("vue-multiselect", Multiselect);
+import "vue-multiselect/dist/vue-multiselect.min.css";
+
 // vue momemt
 Vue.use(require("vue-moment"));
 // import VueMoment from 'vue-moment'
@@ -25,11 +35,6 @@ Vue.use(require("vue-moment"));
 // Vue.use(VueMoment, {
 //     moment,
 // })
-
-// vue select
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-Vue.component("v-select", vSelect);
 
 //FontAwesomeIcon
 import { library } from "@fortawesome/fontawesome-svg-core";

@@ -40,4 +40,15 @@
   border: 1px solid black;
   border-radius: 5px;
 }
+.multiselect__tags {
+  border: 1px solid black !important;
+  border-radius: 5px;
+  background-color: transparent !important;
+}
+.multiselect__input {
+  background-color: transparent !important;
+}
+.multiselect__placeholder {
+  color: black !important;
+}
 </style>
