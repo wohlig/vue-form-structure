@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <nav class="navbar">
-      <div class="trapezoid lime pullUp">
+      <div id="mainnav" class="trapezoid lime pullUp">
         <a href="#">Home</a>
         <a href="#" class="expandHome">About</a>
         <a href="#">Contact Us</a>

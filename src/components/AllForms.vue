@@ -1,17 +1,12 @@
 <template>
   <div class="container">
     <div class="column">
-      <div class="card inception">
-        <h3 class="tab-heading inception">
-          <div class="text">Personal Details</div>
-        </h3>
-        <div class="text-left main-form-section mx-5">
-          <b-form
-            name="form"
-            @submit="onSubmit()"
-            @reset="onReset()"
-            v-if="show"
-          >
+      <b-form name="form" @submit="onSubmit()" @reset="onReset()" v-if="show">
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Personal Details</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
             <!-- first name -->
             <b-form-group label="First Name:" label-for="firstName">
               <b-form-input
@@ -184,21 +179,136 @@
             </b-form-group>
 
             <!-- subnit and reset button -->
-            <div>
-              <b-button
-                type="submit"
-                v-on:click="onSubmit(form)"
-                to="#"
-                variant="primary"
-                >Submit</b-button
-              >
-              <b-button class="ml-4" type="reset" variant="danger"
-                >Reset</b-button
-              >
-            </div>
-          </b-form>
+            <!-- <div>
+              <b-button type="submit" v-on:click="onSubmit(form)" to="#" variant="primary">Submit</b-button>
+              <b-button class="ml-4" type="reset" variant="danger">Reset</b-button>
+            </div>-->
+          </div>
         </div>
-      </div>
+
+        <!-- 2nd section file upload -->
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Upload Documents</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
+            <!-- upload file with input box -->
+            <b-form-group
+              label="* Upload School ID Card or Report Card:"
+              label-for="file"
+            >
+              <b-form-file
+                class="w-50"
+                v-model="form.file"
+                :state="Boolean(file)"
+                placeholder="Choose a file or drop it here..."
+                drop-placeholder="Drop file here..."
+              ></b-form-file>
+              <div
+                v-if="$v.form.file.$error && !$v.form.file.required"
+                class="error-txt"
+              >
+                select file is required
+              </div>
+              <div class="mt-3">
+                Selected file: {{ form.file ? form.file.name : "" }}
+              </div>
+            </b-form-group>
+            <!-- uoload file with button  -->
+            <b-form-group
+              label="*Upload Photograph:"
+              label-for="*Upload Photograph:"
+            >
+              <b-form-file
+                v-model="form.file2"
+                class="mt-3"
+                plain
+              ></b-form-file>
+              <div
+                v-if="$v.form.file2.$error && !$v.form.file2.required"
+                class="error-txt"
+              >
+                select file is required
+              </div>
+              <div class="mt-3">
+                Selected file: {{ form.file2 ? form.file2.name : "" }}
+              </div>
+            </b-form-group>
+            <!-- select aadhar card field -->
+            <b-form-group
+              label=" *Upload Age Proof:"
+              label-for="*Upload Age Proof:"
+            >
+              <b-form-select
+                class="w-50"
+                v-model="form.selectedAge"
+                :options="docOptions"
+              ></b-form-select>
+              <div
+                v-if="
+                  $v.form.selectedAge.$error && !$v.form.selectedAge.required
+                "
+                class="error-txt"
+              >
+                select file is required
+              </div>
+              <b-form-file class="mt-3" plain></b-form-file>
+            </b-form-group>
+          </div>
+        </div>
+
+        <!-- 3rd section address -->
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Additional Details</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
+            <!-- School Name -->
+            <b-form-group label="School Name:" label-for="schoolName">
+              <v-select
+                v-model="form.SchoolName"
+                label="text"
+                :options="schoolOptions"
+              ></v-select>
+              <div
+                v-if="$v.form.SchoolName.$error && !$v.form.SchoolName.required"
+                class="error-txt"
+              >
+                school name is required
+              </div>
+            </b-form-group>
+            <!--  -->
+
+            <b-form-group label="Full Address:" label-for>
+              <b-form-textarea
+                id="textarea"
+                v-model="form.Address"
+                placeholder="Enter something..."
+                rows="3"
+                max-rows="6"
+              ></b-form-textarea>
+              <div
+                v-if="$v.form.Address.$error && !$v.form.Address.required"
+                class="error-txt"
+              >
+                Address is required
+              </div>
+            </b-form-group>
+          </div>
+        </div>
+
+        <!-- submit and reset button -->
+        <div class="mb-5">
+          <b-button
+            type="submit"
+            v-on:click="onSubmit(form)"
+            to="#"
+            variant="primary"
+            >Submit</b-button
+          >
+          <b-button class="ml-4" type="reset" variant="danger">Reset</b-button>
+        </div>
+      </b-form>
     </div>
   </div>
 </template>
@@ -217,6 +327,25 @@ export default {
       errors: [],
       bootstrapBtnPromise: "",
       submitStatus: "true",
+      // data of document type
+      docOptions: [
+        { value: "", text: "Select Documents" },
+        { value: "a", text: "Aadhar Card" },
+        { value: "b", text: "Pan Card" },
+        { value: "c", text: "Passport" },
+        { value: "d", text: "Driving Licence " }
+      ],
+      // data foe school names
+
+      schoolOptions: [
+        { value: "", text: "Select Documents" },
+        { value: "a", text: "kt vidyalaya" },
+        { value: "b", text: "saraswati vidyalaya" },
+        { value: "c", text: "diva vidyalaya" },
+        { value: "d", text: "don bosko high school" },
+        { value: "e", text: "vikas high school" },
+        { value: "f", text: "jk hight school" }
+      ],
 
       form: {
         firstName: "",
@@ -228,6 +357,11 @@ export default {
         dob: "",
         age: "",
         mobileNO: "",
+        file: "",
+        file2: "",
+        selectedAge: "",
+        SchoolName: "",
+        Address: "",
         checked: []
       },
 
@@ -306,6 +440,21 @@ export default {
       },
       mobileNO: {
         required
+      },
+      file: {
+        required
+      },
+      file2: {
+        required
+      },
+      selectedAge: {
+        required
+      },
+      SchoolName: {
+        required
+      },
+      Address: {
+        required
       }
     }
   },
@@ -315,11 +464,16 @@ export default {
       this.$v.form.$touch();
       if (this.$v.form.$error) {
         return;
+      } else {
+        this.$toaster.success("Your data fill succsesfully.", {
+          timeout: 3000
+        });
       }
     },
 
-    onReset(evt) {
-      evt.preventDefault();
+    onReset() {
+      // console.log("JJJJJJJJJJJJJJJJJJJJJ",evt)
+      // evt.preventDefault();
       // Reset our form values
       this.form.firstName = "";
       this.form.middleName = "";
@@ -330,6 +484,11 @@ export default {
       this.form.dob = "";
       this.form.age = "";
       this.form.mobileNO = "";
+      this.form.file = "";
+      this.form.Address = "";
+      this.form.file2 = "";
+      this.form.SchoolName = "";
+      this.form.selectedAge = "";
       this.form.checked = [];
       // Trick to reset/clear native browser form validation state
       this.show = true;
@@ -357,7 +516,10 @@ export default {
 .card {
   font-size: 1.1rem;
   font-weight: 400;
-  margin: 7rem 0;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 3rem;
+  margin-top: 7rem;
   padding: 0 0 1rem 0;
   width: 100%;
   box-shadow: 0.3rem 1.3rem 2rem 2px rgba(56, 65, 56, 0.41);

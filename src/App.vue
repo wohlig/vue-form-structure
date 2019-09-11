@@ -32,4 +32,12 @@
   background-color: transparent !important;
   border: 1px solid black !important;
 }
+
+.v-select {
+  position: relative;
+  font-family: inherit;
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
 </style>

@@ -13,6 +13,11 @@ Vue.use(BootstrapVue);
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
 
+// vue-toster
+import Toaster from "v-toaster";
+Vue.use(Toaster);
+import "v-toaster/dist/v-toaster.css";
+
 // vue momemt
 Vue.use(require("vue-moment"));
 // import VueMoment from 'vue-moment'
