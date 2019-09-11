@@ -503,10 +503,10 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "src/assets/scss/main.scss";
 .error-txt {
-  color: red;
+  color: $red;
 }
 
 .main-form-section {
@@ -526,7 +526,7 @@ export default {
   background-color: $light-white;
   p {
     margin: 0 1rem 1rem 1rem;
-    color: #333;
+    color: $light-black;
     font-size: 1.2rem;
     font-weight: 300;
     &:last-child {
@@ -538,7 +538,7 @@ export default {
 .tab-heading {
   font-family: "Open Sans";
   font-weight: 600;
-  border-top: 0.3rem solid #03a9f4;
+  border-top: 0.3rem solid $sky-blue;
   margin: 0 0 1rem 0;
   color: $fg-color;
   background-color: transparent;
@@ -572,7 +572,7 @@ export default {
     border-bottom-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
     position: relative;
-    box-shadow: 0.1rem 0.4rem 0.5rem -3px rgba(0, 0, 0, 0.56);
+    box-shadow: 0.1rem 0.4rem 0.5rem -3px $box-shadow-color;
     margin-top: -1px;
     &:before,
     &:after {
@@ -586,7 +586,7 @@ export default {
       right: 0.9rem;
       width: 75%;
       height: 1.6rem;
-      box-shadow: 0.8rem 0.4rem 1rem -0.9px rgba(0, 0, 0, 0.76);
+      box-shadow: 0.8rem 0.4rem 1rem -0.9px $box-shadow-color2;
       transform: rotate(6deg);
       border-bottom-right-radius: 1rem;
     }
@@ -598,7 +598,7 @@ export default {
       color: transparent;
       font-size: 1.7rem;
       font-weight: 900;
-      text-shadow: 1rem 0 0.4rem black;
+      text-shadow: 1rem 0 0.4rem $black;
     }
   }
 }
