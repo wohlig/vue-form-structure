@@ -28,6 +28,10 @@ import Multiselect from "vue-multiselect";
 Vue.component("vue-multiselect", Multiselect);
 import "vue-multiselect/dist/vue-multiselect.min.css";
 
+// vue-the-mask
+import VueTheMask from "vue-the-mask";
+Vue.use(VueTheMask);
+
 // vue momemt
 Vue.use(require("vue-moment"));
 // import VueMoment from 'vue-moment'

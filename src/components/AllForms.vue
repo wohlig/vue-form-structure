@@ -2,10 +2,12 @@
   <div class="container">
     <div class="column">
       <b-form name="form" @submit="onSubmit()" @reset="onReset()" v-if="show">
+        <!-- 1st section personmal detail -->
         <div class="card inception">
           <div class="tab-heading inception">
             <h3 class="text">Personal Details</h3>
           </div>
+          <!--  -->
           <div class="text-left main-form-section mx-5">
             <!-- first name -->
             <b-form-group label="First Name:" label-for="firstName">
@@ -17,7 +19,11 @@
                 placeholder="Enter First Name"
               ></b-form-input>
               <div
-                v-if="$v.form.firstName.$error && !$v.form.firstName.required"
+                v-if="
+                  $v.form.firstName.$error &&
+                    !$v.form.firstName.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 first name is required
@@ -34,7 +40,11 @@
                 placeholder="Enter Last Name"
               ></b-form-input>
               <div
-                v-if="$v.form.middleName.$error && !$v.form.middleName.required"
+                v-if="
+                  $v.form.middleName.$error &&
+                    !$v.form.middleName.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 first name is required
@@ -51,7 +61,11 @@
                 placeholder="Enter Last Name"
               ></b-form-input>
               <div
-                v-if="$v.form.lastName.$error && !$v.form.lastName.required"
+                v-if="
+                  $v.form.lastName.$error &&
+                    !$v.form.lastName.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 first name is required
@@ -80,7 +94,8 @@
               <div
                 v-if="
                   $v.form.selectedGender.$error &&
-                    !$v.form.selectedGender.required
+                    !$v.form.selectedGender.required &&
+                    removeText
                 "
                 class="error-txt"
               >
@@ -97,7 +112,9 @@
                 placeholder="Enter Email"
               ></b-form-input>
               <div
-                v-if="$v.form.email.$error && !$v.form.email.required"
+                v-if="
+                  $v.form.email.$error && !$v.form.email.required && removeText
+                "
                 class="error-txt"
               >
                 gmail is required
@@ -113,7 +130,11 @@
                 placeholder="Enter Password"
               ></b-form-input>
               <div
-                v-if="$v.form.password.$error && !$v.form.password.required"
+                v-if="
+                  $v.form.password.$error &&
+                    !$v.form.password.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 password is required
@@ -155,7 +176,7 @@
                 </div>
               </div>
               <div
-                v-if="$v.form.dob.$error && !$v.form.dob.required"
+                v-if="$v.form.dob.$error && !$v.form.dob.required && removeText"
                 class="error-txt"
               >
                 first select date
@@ -171,7 +192,11 @@
                 placeholder="Enter Mobile no  "
               ></b-form-input>
               <div
-                v-if="$v.form.mobileNO.$error && !$v.form.mobileNO.required"
+                v-if="
+                  $v.form.mobileNO.$error &&
+                    !$v.form.mobileNO.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 mobile no is required
@@ -205,7 +230,9 @@
                 drop-placeholder="Drop file here..."
               ></b-form-file>
               <div
-                v-if="$v.form.file.$error && !$v.form.file.required"
+                v-if="
+                  $v.form.file.$error && !$v.form.file.required && removeText
+                "
                 class="error-txt"
               >
                 select file is required
@@ -225,7 +252,9 @@
                 plain
               ></b-form-file>
               <div
-                v-if="$v.form.file2.$error && !$v.form.file2.required"
+                v-if="
+                  $v.form.file2.$error && !$v.form.file2.required && removeText
+                "
                 class="error-txt"
               >
                 select file is required
@@ -246,7 +275,9 @@
               ></b-form-select>
               <div
                 v-if="
-                  $v.form.selectedAge.$error && !$v.form.selectedAge.required
+                  $v.form.selectedAge.$error &&
+                    !$v.form.selectedAge.required &&
+                    removeText
                 "
                 class="error-txt"
               >
@@ -271,7 +302,11 @@
                 :options="schoolOptions"
               ></v-select>
               <div
-                v-if="$v.form.SchoolName.$error && !$v.form.SchoolName.required"
+                v-if="
+                  $v.form.SchoolName.$error &&
+                    !$v.form.SchoolName.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 school name is required
@@ -288,7 +323,11 @@
                 max-rows="6"
               ></b-form-textarea>
               <div
-                v-if="$v.form.Address.$error && !$v.form.Address.required"
+                v-if="
+                  $v.form.Address.$error &&
+                    !$v.form.Address.required &&
+                    removeText
+                "
                 class="error-txt"
               >
                 Address is required
@@ -303,7 +342,9 @@
                 :options="stateOptions"
               ></v-select>
               <div
-                v-if="$v.form.state.$error && !$v.form.state.required"
+                v-if="
+                  $v.form.state.$error && !$v.form.state.required && removeText
+                "
                 class="error-txt"
               >
                 State is required
@@ -324,12 +365,255 @@
                 @tag="addTag"
               ></multiselect>
               <div
-                v-if="$v.form.city.$error && !$v.form.city.required"
+                v-if="
+                  $v.form.city.$error && !$v.form.city.required && removeText
+                "
                 class="error-txt"
               >
                 State is required
               </div>
             </b-form-group>
+            <!-- pin code  -->
+            <b-form-group label="Pin Code:" label-for="pinCode">
+              <b-form-input
+                id="pinCode"
+                v-model="form.pinCode"
+                type="number"
+                required
+                placeholder="Enter Pin Code"
+              ></b-form-input>
+              <div
+                v-if="
+                  $v.form.pinCode.$error &&
+                    !$v.form.pinCode.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                pin code is required
+              </div>
+            </b-form-group>
+          </div>
+        </div>
+
+        <!-- 4th section Bank Details -->
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Bank Details</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
+            <!-- Bank Name -->
+            <b-form-group label="Bank Name:" label-for="bankName">
+              <b-form-input
+                id="pinCode"
+                v-model="form.bankName"
+                type="text"
+                required
+                placeholder="Enter Bank Name"
+              ></b-form-input>
+              <div
+                v-if="
+                  $v.form.bankName.$error &&
+                    !$v.form.bankName.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                bank name is required
+              </div>
+            </b-form-group>
+            <!-- Branch Name -->
+            <b-form-group label="Branch Name:" label-for="branchName">
+              <b-form-input
+                id="branchName"
+                v-model="form.branchName"
+                type="text"
+                required
+                placeholder="Enter Branch Name"
+              ></b-form-input>
+              <div
+                v-if="
+                  $v.form.branchName.$error &&
+                    !$v.form.branchName.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                branch name is required
+              </div>
+            </b-form-group>
+            <!-- Branch Number  -->
+            <b-form-group label="Branch Number:" label-for="branchNumber">
+              <b-form-input
+                id="branchNumber"
+                v-model="form.branchNumber"
+                type="number"
+                required
+                placeholder="Enter Branch Number"
+              ></b-form-input>
+              <div
+                v-if="
+                  $v.form.branchNumber.$error &&
+                    !$v.form.branchNumber.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                branch name is required
+              </div>
+            </b-form-group>
+            <!-- Branch Address -->
+            <b-form-group label="Branch Address:" label-for="branchAddress">
+              <b-form-textarea
+                id="branchAddress"
+                v-model="form.branchAddress"
+                type="text"
+                required
+                placeholder="Enter Branch Number"
+              ></b-form-textarea>
+              <div
+                v-if="
+                  $v.form.branchAddress.$error &&
+                    !$v.form.branchAddress.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                branch name is required
+              </div>
+            </b-form-group>
+            <!-- Branch Address -->
+
+            <b-form-group label="Account Type:">
+              <b-form-radio-group
+                id="radio-group-2"
+                v-model="form.acoountType"
+                required
+                name="flavour-2"
+              >
+                <b-form-radio value="Saving">Saving</b-form-radio>
+                <b-form-radio value="Current">Current</b-form-radio>
+                <b-form-radio value="Other">Other</b-form-radio>
+                <b-form-radio value="Unknown">Unknown</b-form-radio>
+              </b-form-radio-group>
+            </b-form-group>
+
+            <div
+              v-if="
+                $v.form.acoountType.$error &&
+                  !$v.form.acoountType.required &&
+                  removeText
+              "
+              class="error-txt"
+            >
+              select one is required
+            </div>
+          </div>
+        </div>
+
+        <!-- 5th section card details -->
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Card Details</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
+            <!-- Holder Name -->
+            <b-form-group label="First Name:" label-for="firstName">
+              <b-form-input
+                id="firstName"
+                v-model="form.firstName"
+                type="text"
+                required
+                placeholder="Enter First Name"
+              ></b-form-input>
+              <div
+                v-if="
+                  $v.form.firstName.$error &&
+                    !$v.form.firstName.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                first name is required
+              </div>
+            </b-form-group>
+
+            <!--  Card Number-->
+            <b-form-group label="Card Number:" label-for="cardNumber">
+              <the-mask
+                id="cardNumber"
+                v-model="form.cardNumber"
+                type="text"
+                required
+                placeholder="Enter Card Number"
+                class="mask-input"
+                :mask="['#### #### #### ####']"
+              ></the-mask>
+
+              <div
+                v-if="
+                  $v.form.cardNumber.$error &&
+                    !$v.form.cardNumber.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                bank name is required
+              </div>
+            </b-form-group>
+            <!-- EXPIRATION DATE -->
+            <div class="d-flex">
+              <div>
+                <b-form-group
+                  label="Expiration Date:"
+                  label-for="expirationDate"
+                >
+                  <the-mask
+                    id="cardNumber"
+                    v-model="form.expirationDate"
+                    class="w-100 mask-input"
+                    mask="##/##"
+                    type="text"
+                    masked="false"
+                    required
+                    placeholder="mm/yy"
+                  ></the-mask>
+                  <div
+                    v-if="
+                      $v.form.expirationDate.$error &&
+                        !$v.form.expirationDate.required &&
+                        removeText
+                    "
+                    class="error-txt"
+                  >
+                    Expiration Date is required
+                  </div>
+                </b-form-group>
+              </div>
+              <!-- CVV code -->
+              <div class="ml-5">
+                <b-form-group label="CVV Code:" label-for="cvv">
+                  <the-mask
+                    id="cvv"
+                    v-model="form.cvv"
+                    class="w-100 mask-input"
+                    mask="###"
+                    type="password"
+                    masked="false"
+                    required
+                    placeholder="***"
+                  ></the-mask>
+                  <div
+                    v-if="
+                      $v.form.cvv.$error && !$v.form.cvv.required && removeText
+                    "
+                    class="error-txt"
+                  >
+                    CVV is required
+                  </div>
+                </b-form-group>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -342,7 +626,13 @@
             variant="primary"
             >Submit</b-button
           >
-          <b-button class="ml-4" type="reset" variant="danger">Reset</b-button>
+          <b-button
+            class="ml-4"
+            type="reset"
+            v-on:click="ResetBtn()"
+            variant="danger"
+            >Reset</b-button
+          >
         </div>
       </b-form>
     </div>
@@ -354,10 +644,10 @@
 import { required } from "vuelidate/lib/validators";
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
-
+import { TheMask } from "vue-the-mask";
 import moment from "moment";
 export default {
-  components: { DatePicker, Multiselect },
+  components: { DatePicker, Multiselect, TheMask },
   data() {
     return {
       options: [
@@ -374,6 +664,7 @@ export default {
       errors: [],
       bootstrapBtnPromise: "",
       submitStatus: "true",
+      removeText: "true",
       // data of document type
       docOptions: [
         { value: "", text: "Select Documents" },
@@ -421,6 +712,15 @@ export default {
         Address: "",
         state: "",
         city: [],
+        pinCode: "",
+        bankName: "",
+        branchName: "",
+        branchNumber: "",
+        branchAddress: "",
+        acoountType: "",
+        cardNumber: "",
+        expirationDate: "",
+        cvv: "",
         checked: []
       },
 
@@ -520,6 +820,33 @@ export default {
       },
       city: {
         required
+      },
+      pinCode: {
+        required
+      },
+      bankName: {
+        required
+      },
+      branchName: {
+        required
+      },
+      branchNumber: {
+        required
+      },
+      branchAddress: {
+        required
+      },
+      acoountType: {
+        required
+      },
+      cardNumber: {
+        required
+      },
+      expirationDate: {
+        required
+      },
+      cvv: {
+        required
       }
     }
   },
@@ -534,7 +861,12 @@ export default {
       this.value.push(tag);
     },
 
+    ResetBtn() {
+      this.removeText = false;
+    },
+
     onSubmit() {
+      this.removeText = true;
       this.$v.form.$touch();
       if (this.$v.form.$error) {
         return;
@@ -563,7 +895,16 @@ export default {
       this.form.SchoolName = "";
       this.form.selectedAge = "";
       this.form.state = "";
+      this.form.pinCode = "";
       this.form.city = [];
+      this.form.bankName = "";
+      this.form.branchName = "";
+      this.form.branchNumber = "";
+      this.form.branchAddress = "";
+      this.form.acoountType = "";
+      this.form.cardNumber = "";
+      this.form.expirationDate = "";
+      this.form.cvv = "";
       this.form.checked = [];
       // Trick to reset/clear native browser form validation state
       this.show = true;
@@ -580,6 +921,20 @@ export default {
 </script>
 <style lang="scss">
 @import "src/assets/scss/main.scss";
+.mask-input {
+  background-color: transparent;
+  border: 1px solid $black;
+  display: block;
+  width: 50%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  border-radius: 0.25rem;
+}
 .error-txt {
   color: $red;
 }
