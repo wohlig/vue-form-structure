@@ -155,7 +155,7 @@
                       v-model="form.dob"
                       v-on:change="selectDate(form.dob)"
                       type="number"
-                      :lang="'es'"
+                      :lang="'en'"
                       :first-day-of-week="1"
                       :format="'YYYY-MM-DD'"
                       class
@@ -184,13 +184,21 @@
             </b-form-group>
             <!-- mobile no -->
             <b-form-group label="Mobile No" label-for="mobileNO">
-              <b-form-input
+              <!-- <b-form-input
                 id="mobileNO"
                 type="number"
                 v-model="form.mobileNO"
                 required
                 placeholder="Enter Mobile no  "
-              ></b-form-input>
+              ></b-form-input>-->
+              <vue-tel-input
+                id="mobileNO"
+                type="number"
+                v-model="form.mobileNO"
+                required
+                placeholder="Enter Mobile no  "
+                class="mask-input"
+              ></vue-tel-input>
               <div
                 v-if="
                   $v.form.mobileNO.$error &&
@@ -336,7 +344,6 @@
             <!-- state input -->
             <b-form-group label="State" label-for="state">
               <v-select
-                placeholder="Select state"
                 v-model="form.state"
                 label="text"
                 :options="stateOptions"
@@ -375,13 +382,16 @@
             </b-form-group>
             <!-- pin code  -->
             <b-form-group label="Pin Code:" label-for="pinCode">
-              <b-form-input
+              <the-mask
                 id="pinCode"
                 v-model="form.pinCode"
-                type="number"
+                class="mask-input"
+                mask="#######"
+                type="text"
+                masked="false"
                 required
                 placeholder="Enter Pin Code"
-              ></b-form-input>
+              ></the-mask>
               <div
                 v-if="
                   $v.form.pinCode.$error &&
@@ -444,13 +454,16 @@
             </b-form-group>
             <!-- Branch Number  -->
             <b-form-group label="Branch Number:" label-for="branchNumber">
-              <b-form-input
+              <the-mask
                 id="branchNumber"
                 v-model="form.branchNumber"
-                type="number"
+                class="mask-input"
+                mask="######"
+                type="text"
+                masked="false"
                 required
                 placeholder="Enter Branch Number"
-              ></b-form-input>
+              ></the-mask>
               <div
                 v-if="
                   $v.form.branchNumber.$error &&
@@ -616,9 +629,40 @@
             </div>
           </div>
         </div>
+        <!-- 6th section terms and condition -->
+        <div class="card inception">
+          <div class="tab-heading inception">
+            <h3 class="text">Terms & Conditions</h3>
+          </div>
+          <div class="text-left main-form-section mx-5">
+            <!-- term checkbox -->
+            <b-form-group
+              label="Please consult our Privacy Policy , which includes important information"
+            >
+              <b-form-checkbox-group
+                required
+                placeholder="Enter First Name"
+                class="font-size-sm m-4"
+                v-model="form.condition"
+                :options="conditionOptions"
+                stacked
+              ></b-form-checkbox-group>
+              <div
+                v-if="
+                  $v.form.condition.$error &&
+                    !$v.form.condition.required &&
+                    removeText
+                "
+                class="error-txt"
+              >
+                select all required
+              </div>
+            </b-form-group>
+          </div>
+        </div>
 
         <!-- submit and reset button -->
-        <div class="mb-5">
+        <div class="mb-5 text-center">
           <b-button
             type="submit"
             v-on:click="onSubmit(form)"
@@ -643,11 +687,12 @@
 // @ is an alias to /src
 import { required } from "vuelidate/lib/validators";
 import DatePicker from "vue2-datepicker";
-import Multiselect from "vue-multiselect";
+import { Multiselect } from "vue-multiselect";
 import { TheMask } from "vue-the-mask";
+import { VueTelInput } from "vue-tel-input";
 import moment from "moment";
 export default {
-  components: { DatePicker, Multiselect, TheMask },
+  components: { DatePicker, Multiselect, TheMask, VueTelInput },
   data() {
     return {
       options: [
@@ -672,6 +717,20 @@ export default {
         { value: "b", text: "Pan Card" },
         { value: "c", text: "Passport" },
         { value: "d", text: "Driving Licence " }
+      ],
+
+      // data for term and condition
+
+      conditionOptions: [
+        {
+          text: "I am informed of each of the sections of the privacy policy",
+          value: "one"
+        },
+        {
+          text: "I have read and accept the Terms and Conditions",
+          value: "two"
+        },
+        { text: "I have read and accept the Loan Agreement", value: "three" }
       ],
       // data for school names
 
@@ -720,6 +779,7 @@ export default {
         acoountType: "",
         cardNumber: "",
         expirationDate: "",
+        condition: "",
         cvv: "",
         checked: []
       },
@@ -847,6 +907,9 @@ export default {
       },
       cvv: {
         required
+      },
+      condition: {
+        required
       }
     }
   },
@@ -905,6 +968,7 @@ export default {
       this.form.cardNumber = "";
       this.form.expirationDate = "";
       this.form.cvv = "";
+      this.form.condition = "";
       this.form.checked = [];
       // Trick to reset/clear native browser form validation state
       this.show = true;
@@ -923,7 +987,7 @@ export default {
 @import "src/assets/scss/main.scss";
 .mask-input {
   background-color: transparent;
-  border: 1px solid $black;
+  border: 1px solid $black !important;
   display: block;
   width: 50%;
   height: calc(1.5em + 0.75rem + 2px);

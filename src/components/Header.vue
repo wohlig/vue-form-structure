@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <nav class="navbar">
+    <nav id="navbar" class="navbar">
       <div id="mainnav" class="trapezoid lime pullUp">
         <a href="#">Home</a>
         <a href="#" class="expandHome">About</a>
@@ -12,7 +12,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  mounted() {
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("mainnav").style.borderBottom =
+          "100px solid rgba(0,0,0,0.5)";
+      } else {
+        document.getElementById("mainnav").style.borderBottom =
+          "100px solid black";
+      }
+      prevScrollpos = currentScrollPos;
+    };
+  }
+};
 </script>
 
 <style lang="scss">

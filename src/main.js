@@ -32,6 +32,10 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 import VueTheMask from "vue-the-mask";
 Vue.use(VueTheMask);
 
+// vue-tel-input
+import VueTelInput from "vue-tel-input";
+Vue.use(VueTelInput);
+
 // vue momemt
 Vue.use(require("vue-moment"));
 // import VueMoment from 'vue-moment'
